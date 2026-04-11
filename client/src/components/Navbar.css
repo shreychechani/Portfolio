@@ -1,0 +1,155 @@
+.navbar-wrapper {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 50;
+  padding: 16px 16px 0;
+}
+
+.navbar-pill {
+  width: 100%;
+  max-width: 920px;
+  border-radius: 16px;
+  padding: 10px 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+.nav-dark {
+  background: linear-gradient(135deg, rgba(20,35,60,0.97), rgba(11,22,40,0.97));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.nav-light {
+  background: linear-gradient(135deg, rgba(255,237,213,0.97), rgba(255,255,255,0.97));
+  border: 1px solid rgba(249, 115, 22, 0.15);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* LOGO */
+.nav-logo {
+  font-size: 19px; font-weight: 800;
+  text-decoration: none; letter-spacing: -0.3px;
+  white-space: nowrap; flex-shrink: 0;
+}
+.nav-dark .nav-logo  { color: #fff; }
+.nav-light .nav-logo { color: #111827; }
+.logo-dot { color: #f97316; }
+
+/* DESKTOP LINKS */
+.desktop-links { display: none; align-items: center; gap: 4px; }
+
+@media (min-width: 1024px) {
+  .desktop-links { display: flex; }
+}
+
+.nav-link-wrapper {
+  position: relative;
+  text-decoration: none;
+  padding-bottom: 4px;
+}
+
+.nav-link {
+  display: block; font-size: 14px; font-weight: 500;
+  padding: 6px 12px; border-radius: 8px; cursor: pointer;
+  transition: color 0.2s;
+}
+
+.nav-link-active { color: #f97316; }
+.nav-dark  .nav-link-inactive { color: rgba(255,255,255,0.6); }
+.nav-light .nav-link-inactive { color: #374151; }
+.nav-link-inactive:hover { color: #f97316; }
+
+/* THE SLIDING ORANGE UNDERLINE */
+.nav-indicator {
+  position: absolute;
+  bottom: -2px; left: 12px; right: 12px;
+  height: 2px;
+  background: linear-gradient(to right, #f97316, #fb923c);
+  border-radius: 100px;
+}
+
+/* ACTIONS */
+.nav-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+
+.theme-btn {
+  width: 36px; height: 36px; border-radius: 50%; border: none;
+  cursor: pointer; font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.theme-btn-dark  { background: rgba(255,255,255,0.08); }
+.theme-btn-light { background: rgba(0,0,0,0.07); }
+.theme-btn:hover { transform: rotate(15deg); }
+
+/* CONTACT ME BUTTON — orange pill */
+.hire-btn {
+  padding: 8px 22px; font-size: 13.5px; font-weight: 600;
+  border-radius: 100px;
+  background: linear-gradient(to right, #f97316, #fb923c);
+  color: #fff; text-decoration: none; border: none;
+  box-shadow: 0 4px 14px rgba(249,115,22,0.35);
+  transition: box-shadow 0.2s; white-space: nowrap;
+  cursor: pointer; font-family: inherit;
+}
+.hire-btn:hover { box-shadow: 0 6px 20px rgba(249,115,22,0.55); }
+
+/* HAMBURGER */
+.hamburger-btn {
+  display: flex; flex-direction: column; justify-content: center;
+  gap: 5px; background: none; border: none; cursor: pointer;
+  padding: 6px; border-radius: 8px;
+}
+.hamburger-dark  { background: rgba(255,255,255,0.07); }
+.hamburger-light { background: rgba(0,0,0,0.06); }
+
+.ham-line {
+  display: block; width: 20px; height: 2px;
+  border-radius: 2px; transition: all 0.3s ease;
+}
+.nav-dark  .ham-line { background: #fff; }
+.nav-light .ham-line { background: #111827; }
+
+.ham-1-open { transform: rotate(45deg) translate(5px, 5px); }
+.ham-2-open { opacity: 0; transform: scaleX(0); }
+.ham-3-open { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* HELPERS */
+.desktop-only { display: none; }
+.mobile-only  { display: flex; }
+
+@media (min-width: 1024px) {
+  .desktop-only { display: inline-flex; }
+  .mobile-only  { display: none; }
+}
+
+/* MOBILE MENU */
+.mobile-menu { overflow: hidden; margin-top: 8px; border-radius: 12px; padding: 8px; }
+.mobile-menu-dark  { background: rgba(7,14,28,0.96); border: 1px solid rgba(255,255,255,0.07); }
+.mobile-menu-light { background: rgba(255,255,255,0.96); border: 1px solid rgba(249,115,22,0.1); }
+
+.mobile-link-wrapper { display: block; text-decoration: none; }
+.mobile-link-item {
+  padding: 10px 14px; border-radius: 8px;
+  margin-bottom: 2px; font-size: 14px; font-weight: 500;
+}
+.mobile-active-dark  { background: rgba(255,255,255,0.06); }
+.mobile-active-light { background: rgba(249,115,22,0.06); }
+
+.mobile-hire-btn {
+  display: block; text-align: center; padding: 11px 14px;
+  margin-top: 6px; font-size: 14px; font-weight: 600;
+  border-radius: 10px;
+  background: linear-gradient(to right, #f97316, #fb923c);
+  color: #fff; text-decoration: none;
+}

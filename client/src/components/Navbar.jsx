@@ -2,24 +2,23 @@ import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTheme } from '../context/ThemeContext'
 import './Navbar.css'
+import BatmanLogo from '../assets/Batman_logo.png'
 
 const navItems = [
-  { name: 'Home',           link: '#home' },
-  { name: 'About',          link: '#about' },
-  { name: 'Skills',         link: '#skills' },
-  { name: 'Projects',       link: '#projects' },
-  { name: 'Timeline',       link: '#timeline' },
+  { name: 'Home', link: '#home' },
+  { name: 'About', link: '#about' },
+  { name: 'Skills', link: '#skills' },
+  { name: 'Projects', link: '#projects' },
+  { name: 'Timeline', link: '#timeline' },
   { name: 'Certifications', link: '#certifications' },
-  { name: 'Contact',        link: '#contact' },
+  { name: 'Contact', link: '#contact' },
 ]
-
-const API = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme()
   const [activeSection, setActiveSection] = useState('home')
-  const [isMenuOpen, setIsMenuOpen]       = useState(false)
-  const observerRef                        = useRef(null)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const observerRef = useRef(null)
   const isDark = theme === 'dark'
 
   useEffect(() => {
@@ -27,15 +26,13 @@ export default function Navbar() {
 
     const handleIntersection = (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id)
-        }
+        if (entry.isIntersecting) setActiveSection(entry.target.id)
       })
     }
 
     observerRef.current = new IntersectionObserver(handleIntersection, {
       root: null,
-      rootMargin: '-50% 0px -50% 0px', // trigger only when section is at viewport center
+      rootMargin: '-50% 0px -50% 0px',
       threshold: 0,
     })
 
@@ -53,13 +50,11 @@ export default function Navbar() {
     e.preventDefault()
     setActiveSection(itemName.toLowerCase())
     setIsMenuOpen(false)
-    const target = document.querySelector(link)
-    if (target) target.scrollIntoView({ behavior: 'smooth' })
+    document.querySelector(link)?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
     <div className="navbar-wrapper">
-
       <motion.nav
         className={`navbar-pill ${isDark ? 'nav-dark' : 'nav-light'}`}
         initial={{ y: -100 }}
@@ -68,7 +63,7 @@ export default function Navbar() {
       >
         <div className="nav-row">
 
-          {/* LOGO — "Portfolio" */}
+          {/* LOGO */}
           <motion.a
             href="#home"
             className="nav-logo"
@@ -78,6 +73,7 @@ export default function Navbar() {
             Portfolio<span className="logo-dot">.</span>
           </motion.a>
 
+          {/* DESKTOP LINKS */}
           <div className="desktop-links">
             {navItems.map((item) => {
               const isActive = activeSection === item.name.toLowerCase()
@@ -96,7 +92,6 @@ export default function Navbar() {
                     {item.name}
                   </motion.span>
 
-                
                   {isActive && (
                     <motion.div
                       layoutId="navbar-indicator"
@@ -108,10 +103,8 @@ export default function Navbar() {
             })}
           </div>
 
-
+          {/* ACTIONS */}
           <div className="nav-actions">
-
-            {/* SUN/MOON TOGGLE */}
             <motion.button
               className={`theme-btn ${isDark ? 'theme-btn-dark' : 'theme-btn-light'}`}
               onClick={toggleTheme}
@@ -119,10 +112,15 @@ export default function Navbar() {
               whileTap={{ scale: 0.9 }}
               aria-label="Toggle theme"
             >
-              {isDark ? '☀️' : '🌙'}
+              {isDark ? '☀️' : (
+                <img
+                  src={BatmanLogo}
+                  alt="Dark mode"
+                  style={{ width: '20px', height: '20px', objectFit: 'contain' }}
+                />
+              )}
             </motion.button>
 
-            {/* CONTACT ME */}
             <motion.a
               href="#contact"
               className="hire-btn desktop-only"
@@ -133,7 +131,6 @@ export default function Navbar() {
               Contact Me
             </motion.a>
 
-            {/*mobile only */}
             <motion.button
               className={`hamburger-btn mobile-only ${isDark ? 'hamburger-dark' : 'hamburger-light'}`}
               onClick={() => setIsMenuOpen(o => !o)}
@@ -167,9 +164,13 @@ export default function Navbar() {
                     onClick={e => handleNavClick(e, item.name, item.link)}
                   >
                     <motion.div
-                      className={`mobile-link-item ${isActive
-                        ? isDark ? 'mobile-active-dark' : 'mobile-active-light'
-                        : ''}`}
+                      className={`mobile-link-item ${
+                        isActive
+                          ? isDark
+                            ? 'mobile-active-dark'
+                            : 'mobile-active-light'
+                          : ''
+                      }`}
                       whileHover={{ x: 5 }}
                     >
                       <span className={isActive ? 'nav-link-active' : 'nav-link-inactive'}>
@@ -180,7 +181,6 @@ export default function Navbar() {
                 )
               })}
 
-              {/* Contact Me in mobile menu */}
               <motion.a
                 href="#contact"
                 className="mobile-hire-btn"
