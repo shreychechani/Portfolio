@@ -68,7 +68,7 @@ export default function Navbar() {
       >
         <div className="nav-row">
 
-          {/* LOGO — "Portfolio." with orange dot */}
+          {/* LOGO — "Portfolio" */}
           <motion.a
             href="#home"
             className="nav-logo"
