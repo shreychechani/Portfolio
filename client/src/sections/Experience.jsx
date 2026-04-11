@@ -6,7 +6,6 @@ import './Experience.css'
 // Work experience first, then education
 const WORK = [
   {
-    emoji: '🔬',
     role: 'Research Intern',
     org: 'LNMIIT Jaipur',
     date: 'May 2025 – July 2025',
@@ -22,8 +21,7 @@ const WORK = [
 
 const EDUCATION = [
   {
-    emoji: '🎓',
-    role: 'B.Tech — Computer Science',
+    role: 'B.Tech in Computer Science',
     org: 'JK Lakshmipat University, Jaipur',
     date: 'Aug 2023 – Present',
     color: '#f97316',
@@ -41,9 +39,9 @@ const EDUCATION = [
     color: '#10b981',
     points: [
       'Completed CBSE Class XII with 79% aggregate.',
-      'Strong foundation in Mathematics, Physics, and Computer Science.',
+      'Foundation in Mathematics, Physics, and Computer Science.',
     ],
-    tags: ['CBSE', 'Mathematics', 'Physics', 'Computer Science',],
+    tags: ['CBSE', 'Mathematics', 'Physics','Chemistry', 'Computer Science',],
   },
 ]
 
@@ -67,7 +65,6 @@ function useReveal() {
   return ref
 }
 
-// ─── TimelineItem component ───────────────────────────────────────────────────
 function TimelineItem({ item, index }) {
   return (
     <motion.div
@@ -75,7 +72,6 @@ function TimelineItem({ item, index }) {
       whileHover={{ x: 4 }}
       transition={{ type: 'spring', stiffness: 300 }}
     >
-      {/* Coloured dot on the vertical line */}
       <div
         className="tl-dot"
         style={{
@@ -86,7 +82,6 @@ function TimelineItem({ item, index }) {
         {item.emoji}
       </div>
 
-      {/* Card */}
       <div className="tl-card">
         <div className="tl-header">
           <div>
@@ -116,7 +111,6 @@ export default function Experience() {
   const ref = useReveal()
 
   return (
-    // IMPORTANT: id="timeline" — matches "Timeline" in the navbar
     <section id="timeline" ref={ref}>
       <div className="container">
 
@@ -124,11 +118,10 @@ export default function Experience() {
           <p className="section-label">Experience & Education</p>
           <h2 className="section-title">My <span>Journey</span></h2>
           <p className="section-sub">
-            How I've grown professionally and academically.
+            My Professional and Academic Journey.
           </p>
         </div>
 
-        {/* Work experience */}
         <p className="tl-section-label reveal">💼 Work Experience</p>
         <div className="timeline">
           <div className="tl-line" />
