@@ -34,8 +34,8 @@ A full-stack personal portfolio website built from scratch using the MERN Stack.
 
 | | URL |
 |---|---|
-| **Frontend (Vercel)** | https://portfolio-lyart-chi-39.vercel.app |
-| **Backend (Render)** | https://shrey-portfolio-api.onrender.com |
+| **Frontend (Vercel)** | https://portfolio-client-red.vercel.app/ |
+| **Backend (Render)** | https://portfolio-api-51mq.onrender.com |
 
 ---
 
