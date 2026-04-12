@@ -18,8 +18,6 @@ export const sendContactEmail = async ({ name, email, message }) => {
 
   const transporter = createTransporter()
 
-  await transporter.verify()
-
   const now = new Date().toLocaleString('en-IN', {
     timeZone: 'Asia/Kolkata',
     dateStyle: 'medium',
