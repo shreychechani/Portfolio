@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import axios from 'axios'
 import './Contact.css'
 
-const API = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+const API = import.meta.env.VITE_API_URL
 
 function useReveal() {
   const ref = useRef(null)
