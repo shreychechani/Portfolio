@@ -17,7 +17,7 @@ const __dirname  = path.dirname(__filename)
 
 app.use(cors({
   origin: [
-    'https://portfolio-lyart-chi-39.vercel.app',
+    'https://portfolio-client-red.vercel.app',
     'http://localhost:5173',
     'http://localhost:4173',
   ],
