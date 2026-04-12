@@ -1,24 +1,26 @@
 import nodemailer from 'nodemailer'
 
+let transporter
+
 const createTransporter = () => {
+  if (transporter) return transporter
   if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
     throw new Error('EMAIL_USER or EMAIL_PASS missing from .env file')
   }
 
-  return nodemailer.createTransport({
+  transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
     },
   })
+
+  return transporter
 }
 
 export const sendContactEmail = async ({ name, email, message }) => {
-
   const transporter = createTransporter()
-
-  await transporter.verify()
 
   const now = new Date().toLocaleString('en-IN', {
     timeZone: 'Asia/Kolkata',
