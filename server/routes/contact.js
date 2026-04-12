@@ -43,21 +43,23 @@ router.post('/', async (req, res) => {
 
     console.log(`New contact saved — ID: ${saved._id} from ${email}`)
 
-    // ── Send emails
-    try {
-      await sendContactEmail({
-        name:    name.trim(),
-        email:   email.trim(),
-        message: message.trim(),
-      })
-    } catch (emailErr) {
-      console.error(`Email failed (message still saved): ${emailErr.message}`)
-    }
-
-    return res.status(201).json({
+    res.status(201).json({
       success: true,
       message: "Message received! I'll get back to you soon.",
     })
+
+    // Send emails in the background so the user doesn't wait for SMTP delivery.
+    sendContactEmail({
+      name:    name.trim(),
+      email:   email.trim(),
+      message: message.trim(),
+    })
+      .then(() => {
+        console.log(`Background email sent for contact ${saved._id}`)
+      })
+      .catch(emailErr => {
+        console.error(`Email failed (message still saved): ${emailErr.message}`)
+      })
 
   } catch (err) {
     if (err.name === 'ValidationError') {
