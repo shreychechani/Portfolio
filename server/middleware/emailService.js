@@ -19,7 +19,7 @@ const createTransporter = () => {
   return transporter
 }
 
-export const sendContactEmail = async ({ name, email, message }) => {
+const sendContactEmail = async ({ name, email, message }) => {
   const transporter = createTransporter()
 
   const now = new Date().toLocaleString('en-IN', {
@@ -173,3 +173,5 @@ export const sendContactEmail = async ({ name, email, message }) => {
 
   return results
 }
+
+export { createTransporter, sendContactEmail }
