@@ -18,6 +18,8 @@ export const sendContactEmail = async ({ name, email, message }) => {
 
   const transporter = createTransporter()
 
+  await transporter.verify()
+
   const now = new Date().toLocaleString('en-IN', {
     timeZone: 'Asia/Kolkata',
     dateStyle: 'medium',
@@ -25,7 +27,7 @@ export const sendContactEmail = async ({ name, email, message }) => {
   })
 
   const toYou = {
-    from: `"Shrey's Portfolio" <${process.env.EMAIL_USER}>`,
+    from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
     to: process.env.EMAIL_TO,
     replyTo: `"${name}" <${email}>`,
     subject: `New message from ${name} — Portfolio`,

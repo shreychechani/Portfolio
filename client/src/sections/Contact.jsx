@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import axios from 'axios'
 import './Contact.css'
 
-const API = import.meta.env.VITE_API_URL
+const API = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:3000' : '')
 
 function useReveal() {
   const ref = useRef(null)
@@ -31,6 +31,7 @@ export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [status, setStatus] = useState(null)
   const [errors, setErrors] = useState({})
+  const [serverError, setServerError] = useState('')
 
   const validate = () => {
     const e = {}
@@ -58,7 +59,15 @@ export default function Contact() {
       return
     }
 
+    setServerError('')
     setStatus('loading')
+
+    if (!API) {
+      console.error('Contact form error: VITE_API_URL is not configured')
+      setServerError('Contact server URL is not configured. Please set VITE_API_URL.')
+      setStatus('error')
+      return
+    }
 
     try {
       await axios.post(`${API}/api/contact`, {
@@ -72,6 +81,9 @@ export default function Contact() {
 
     } catch (err) {
       console.error('Contact form error:', err)
+      setServerError(
+        err.response?.data?.error || 'Something went wrong while sending your message.'
+      )
       setStatus('error')
     }
   }
@@ -147,8 +159,9 @@ export default function Contact() {
 
                 {status === 'error' && (
                   <div className="server-error">
-                    Something went wrong. Please email me directly at
-                    shreychechani@gmail.com
+                    {serverError || (
+                      <>Something went wrong. Please email me directly at shreychechani@gmail.com</>
+                    )}
                   </div>
                 )}
 
