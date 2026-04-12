@@ -70,7 +70,7 @@ export default function Navbar() {
             onClick={e => handleNavClick(e, 'home', '#home')}
             whileHover={{ scale: 1.05 }}
           >
-            Portfolio<span className="logo-dot">.</span>
+            Portfolio<span className="logo-dot"> </span>
           </motion.a>
 
           {/* DESKTOP LINKS */}

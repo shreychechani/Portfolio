@@ -93,7 +93,7 @@ export default function Contact() {
 
             {status === 'success' ? (
               <div className="form-success">
-                <span className="success-icon">✅</span>
+                <span className="success-icon"></span>
                 <h4>Message sent!</h4>
                 <p>Thanks for reaching out. I'll get back to you soon.</p>
                 <button

@@ -27,7 +27,7 @@ export const sendContactEmail = async ({ name, email, message }) => {
   })
 
   const toYou = {
-    from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
+    from: `"Shrey's Portfolio" <${process.env.EMAIL_USER}>`,
     to: process.env.EMAIL_TO,
     replyTo: `"${name}" <${email}>`,
     subject: `New message from ${name} — Portfolio`,

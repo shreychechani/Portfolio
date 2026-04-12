@@ -22,7 +22,6 @@ export default function Hero() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
           >
-            {/* GitHub + LinkedIn icon buttons */}
             <div className="hero-socials">
               <a
                 href="https://github.com/shreychechani"
@@ -51,25 +50,10 @@ export default function Hero() {
               Hi, I'm<br />
               <span className="hero-name">Shrey Chechani</span>
             </h1>
-            
-            <div className="hero-role">
-              <TypeAnimation
-                sequence={[
-                  'Full-Stack Developer', 2000,
-                  'ML Engineer',          2000,
-                  'Blockchain Developer', 2000,
-                ]}
-                wrapper="span"
-                speed={50}
-                deletionSpeed={70}
-                repeat={Infinity}
-                className="role-typed"
-              />
-            </div>
 
             <p className="hero-bio">
-              Computer Science student at JK Lakshmipat University, Jaipur —
-              building scalable full-stack web apps, Machine Learning Enthusiast, and exploring
+              Computer Science student at JK Lakshmipat University, Jaipur. Passionate about
+              building scalable Full-stack web apps, Machine Learning Enthusiast, and exploring
               Blockchain Technology.
             </p>
 
