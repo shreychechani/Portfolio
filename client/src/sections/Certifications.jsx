@@ -4,28 +4,28 @@ import './Certifications.css'
 
 const CERTS = [
   {
-    title: 'Add Your Certificate',
-    issuer: 'e.g. NPTEL / Coursera / LinkedIn Learning',
-    date: '2024',
+    title: 'Introduction to C++',
+    issuer: 'Coding Ninjas',
+    date: '2023',
     color: '#f97316',
-    link: '#',
-    placeholder: true,
+    link: 'https://certificate.codingninjas.com/view/6d8d8f7161b76da7',
+    placeholder: false,
   },
   {
-    title: 'Add Your Certificate',
-    issuer: 'e.g. Udemy / HackerRank',
-    date: '2024',
+    title: 'Python Programming',
+    issuer: 'Coursera',
+    date: '2023',
     color: '#38bdf8',
-    link: '#',
-    placeholder: true,
+    link: 'https://coursera.org/share/38020fc3aa83863bcc4642aff94359e5',
+    placeholder: false,
   },
   {
-    title: 'Add Your Certificate',
-    issuer: 'e.g. Google / AWS',
+    title: 'Exploring C',
+    issuer: 'Coursera',
     date: '2024',
     color: '#10b981',
-    link: '#',
-    placeholder: true,
+    link: 'https://coursera.org/share/09a55ad998014b64fbfe983d8be6008e',
+    placeholder: false,
   },
 ]
 
@@ -73,60 +73,51 @@ export default function Certifications() {
         </div>
 
         <p className="cert-group-label reveal">Certificates</p>
+
         <div className="certs-grid">
           {CERTS.map((cert, i) => (
             <motion.div
               key={i}
-              className={`cert-card reveal delay-${i + 1} ${cert.placeholder ? 'cert-placeholder' : ''}`}
+              className="cert-card reveal"
               whileHover={{ y: -4 }}
-              transition={{ type: 'spring', stiffness: 300 }}
             >
               <div
                 className="cert-top"
                 style={{ borderBottomColor: cert.color + '30' }}
-              >
-                <span className="cert-emoji">{cert.emoji}</span>
-                {cert.placeholder && (
-                  <span className="cert-add-tag">Add yours</span>
-                )}
-              </div>
+              />
+
               <div className="cert-body">
-                <h4
-                  className="cert-title"
-                  style={{ color: cert.placeholder ? 'var(--text-3)' : 'var(--text)' }}
-                >
-                  {cert.title}
-                </h4>
+                <h4 className="cert-title">{cert.title}</h4>
+
                 <p className="cert-issuer" style={{ color: cert.color }}>
                   {cert.issuer}
                 </p>
-                <div className="cert-footer">
-                  <span className="cert-date">{cert.date}</span>
-                  {!cert.placeholder && (
-                    <a
-                      href={cert.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="cert-verify"
-                      style={{ color: cert.color }}
-                    >
-                      Verify ↗
-                    </a>
-                  )}
-                </div>
+
+                <span className="cert-date">{cert.date}</span>
+
+                <a
+                  href={cert.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="cert-btn"
+                >
+                  View Certificate →
+                </a>
               </div>
             </motion.div>
           ))}
         </div>
 
-        <p className="cert-group-label reveal" style={{ marginTop: 48 }}>Achievements</p>
+        <p className="cert-group-label reveal" style={{ marginTop: 48 }}>
+          Achievements
+        </p>
+
         <div className="achievements-list">
           {ACHIEVEMENTS.map((ach, i) => (
             <motion.div
               key={i}
-              className={`ach-card reveal delay-${i + 1}`}
+              className="ach-card reveal"
               whileHover={{ x: 4 }}
-              transition={{ type: 'spring', stiffness: 300 }}
             >
               <div
                 className="ach-icon-wrap"
@@ -134,9 +125,8 @@ export default function Certifications() {
                   background: ach.color + '18',
                   border: `1px solid ${ach.color}30`,
                 }}
-              >
-                <span className="ach-icon">{ach.emoji}</span>
-              </div>
+              />
+
               <div>
                 <h4 className="ach-title">{ach.title}</h4>
                 <p className="ach-desc">{ach.desc}</p>
