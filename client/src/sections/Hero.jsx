@@ -1,6 +1,7 @@
 import { TypeAnimation } from 'react-type-animation'
 import { motion } from 'framer-motion'
 import './Hero.css'
+import profileImg from '../assets/Profile_Photo.jpeg'
 
 const API = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
@@ -57,7 +58,6 @@ export default function Hero() {
                   'Full-Stack Developer', 2000,
                   'ML Engineer',          2000,
                   'Blockchain Developer', 2000,
-                  'Research Intern @ LNMIIT', 2000,
                 ]}
                 wrapper="span"
                 speed={50}
@@ -70,7 +70,7 @@ export default function Hero() {
             <p className="hero-bio">
               Computer Science student at JK Lakshmipat University, Jaipur —
               building scalable full-stack web apps, Machine Learning Enthusiast, and exploring
-              Blockchain technology.
+              Blockchain Technology.
             </p>
 
             <div className="hero-cta">
@@ -86,7 +86,7 @@ export default function Hero() {
                   <polyline points="7,10 12,15 17,10"/>
                   <line x1="12" y1="15" x2="12" y2="3"/>
                 </svg>
-                Download CV (PDF)
+                Download Resume (.pdf)
               </motion.a>
 
               <motion.a
@@ -101,7 +101,7 @@ export default function Hero() {
                   <polyline points="7,10 12,15 17,10"/>
                   <line x1="12" y1="15" x2="12" y2="3"/>
                 </svg>
-                Download CV (.docx)
+                Download Resume (.docx)
               </motion.a>
             </div>
           </motion.div>
@@ -116,7 +116,7 @@ export default function Hero() {
             <div className="photo-frame">
               <div className="photo-glow" />
               <img
-                src="/assets/Profile_Photo.png"
+                src={profileImg}
                 alt="Shrey Chechani"
                 className="hero-photo"
                 onError={e => {
