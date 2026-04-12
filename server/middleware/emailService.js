@@ -4,15 +4,15 @@ let transporter
 
 const createTransporter = () => {
   if (transporter) return transporter
-  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-    throw new Error('EMAIL_USER or EMAIL_PASS missing from .env file')
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_APP_PASSWORD) {
+    throw new Error('EMAIL_USER or EMAIL_APP_PASSWORD missing from .env file')
   }
 
   transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
+      pass: process.env.EMAIL_APP_PASSWORD,
     },
   })
 
@@ -156,6 +156,7 @@ export const sendContactEmail = async ({ name, email, message }) => {
   }
 
   try {
+    console.log(`Sending admin notification to ${process.env.EMAIL_TO}`)
     results.toYou = await transporter.sendMail(toYou)
     console.log(`Email sent to you: ${results.toYou.messageId}`)
   } catch (err) {
@@ -163,6 +164,7 @@ export const sendContactEmail = async ({ name, email, message }) => {
   }
 
   try {
+    console.log(`Sending auto-reply to ${email}`)
     results.toThem = await transporter.sendMail(toThem)
     console.log(`Auto-reply sent to ${email}: ${results.toThem.messageId}`)
   } catch (err) {
