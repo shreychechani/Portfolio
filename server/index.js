@@ -15,13 +15,22 @@ const PORT = process.env.PORT || 3000
 const __filename = fileURLToPath(import.meta.url)
 const __dirname  = path.dirname(__filename)
 
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  'https://portfolio-client-red.vercel.app',
+  'http://localhost:5173',
+  'http://localhost:4173',
+].filter(Boolean)
+
 app.use(cors({
-  origin: [
-    'https://portfolio-client-red.vercel.app',
-    'http://localhost:5173',
-    'http://localhost:4173',
-  ],
-  methods: ['GET', 'POST'],
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true)
+    if (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
+      return callback(null, true)
+    }
+    return callback(new Error(`CORS policy: origin '${origin}' not allowed`))
+  },
+  methods: ['GET', 'POST', 'OPTIONS'],
   credentials: true,
 }))
 
