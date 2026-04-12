@@ -41,7 +41,7 @@ router.post('/', async (req, res) => {
       ipAddress,
     })
 
-    console.log(`📥 New contact saved — ID: ${saved._id} from ${email}`)
+    console.log(`New contact saved — ID: ${saved._id} from ${email}`)
 
     // ── Send emails
     try {

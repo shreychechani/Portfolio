@@ -17,12 +17,13 @@ const __dirname  = path.dirname(__filename)
 
 app.use(cors({
   origin: [
-    process.env.CLIENT_URL || 'http://localhost:5173',
+    'https://portfolio-lyart-chi-39.vercel.app',
+     process.env.CLIENT_URL,
     'http://localhost:5173',
-    'http://localhost:4173',   
+    'http://localhost:4173',
   ],
-  methods: ['GET', 'POST'],    // Allow only GET and POST requests
-  credentials: true,           // Allow cookies if needed later
+  methods: ['GET', 'POST'],
+  credentials: true,
 }))
 
 app.use(express.json())
