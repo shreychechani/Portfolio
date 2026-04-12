@@ -150,13 +150,24 @@ export const sendContactEmail = async ({ name, email, message }) => {
     `,
   }
 
-  const results = await Promise.all([
-    transporter.sendMail(toYou),
-    transporter.sendMail(toThem),
-  ])
+  const results = {
+    toYou: null,
+    toThem: null,
+  }
 
-  console.log(`Email sent to you: ${results[0].messageId}`)
-  console.log(`Auto-reply sent to ${email}: ${results[1].messageId}`)
+  try {
+    results.toYou = await transporter.sendMail(toYou)
+    console.log(`Email sent to you: ${results.toYou.messageId}`)
+  } catch (err) {
+    console.error(`Failed to send admin notification: ${err.message}`)
+  }
+
+  try {
+    results.toThem = await transporter.sendMail(toThem)
+    console.log(`Auto-reply sent to ${email}: ${results.toThem.messageId}`)
+  } catch (err) {
+    console.error(`Failed to send auto-reply to ${email}: ${err.message}`)
+  }
 
   return results
 }
