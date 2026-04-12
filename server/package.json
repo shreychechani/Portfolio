@@ -1,7 +1,7 @@
 {
-  "name": "server",
+  "name": "shrey-chechani-portfolio-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Backend server",
   "main": "index.js",
  "scripts": {
     "start": "node index.js",
