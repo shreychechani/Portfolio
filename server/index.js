@@ -5,7 +5,6 @@ import mongoose  from 'mongoose'
 import path      from 'path'
 import { fileURLToPath } from 'url'
 import contactRoutes  from './routes/contact.js'
-import downloadRoutes from './routes/download.js'
 
 dotenv.config()
 
@@ -39,7 +38,6 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.use('/api/contact',  contactRoutes)
-app.use('/api/download', downloadRoutes)
 
 app.get('/api/health', (req, res) => {
   res.json({
@@ -61,7 +59,6 @@ mongoose.connect(process.env.MONGO_URI)
     app.listen(PORT, () => {
       console.log(`Server running at http://localhost:${PORT}`)
       console.log(`Contact API: http://localhost:${PORT}/api/contact`)
-      console.log(`Download API: http://localhost:${PORT}/api/download/cv-pdf`)
       console.log(`Health check: http://localhost:${PORT}/api/health`)
     })
   })

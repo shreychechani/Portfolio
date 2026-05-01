@@ -59,7 +59,8 @@ export default function Hero() {
 
             <div className="hero-cta">
               <motion.a
-                href={`${API}/api/download/cv-pdf`}
+                href="/ShreyChechani_CV.pdf"
+                download="ShreyChechani_CV.pdf"
                 className="btn-orange"
                 target="_blank" rel="noreferrer"
                 whileHover={{ scale: 1.04 }}
@@ -74,7 +75,8 @@ export default function Hero() {
               </motion.a>
 
               <motion.a
-                href={`${API}/api/download/cv-docx`}
+                href="/ShreyChechani_CV.docx"
+                download="ShreyChechani_CV.docx"
                 className="btn-outline-hero"
                 target="_blank" rel="noreferrer"
                 whileHover={{ scale: 1.04 }}
