@@ -6,6 +6,17 @@ import './Experience.css'
 // Work experience first, then education
 const WORK = [
   {
+    role: 'AI Engineering Intern – Tax Technology',
+    org: 'EY (Ernst & Young)',
+    date: 'June 2026 – Present',
+    color: '#fbbf24',
+    points: [
+      'Researching and implementing Agentic Workflows and Agent Harness Engineering concepts for enterprise Tax Technology use cases',
+      'Analyzing agent reliability, observability, guardrails, and workflow orchestration to support scalable AI-driven tax solutions',
+    ],
+    tags: ['AI', 'Agentic Workflows', 'Orchestration'],
+  },
+  {
     role: 'Research Intern',
     org: 'LNMIIT Jaipur',
     date: 'May 2025 – July 2025',
