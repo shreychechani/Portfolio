@@ -6,6 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shrey Chechani's Portfolio</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👨🏻‍💻</text></svg>" />
+    <!-- Tell mobile browsers the site handles its own light/dark themes, so they
+         don't auto-darken the light theme (e.g. Chrome Android, Samsung Internet) -->
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#0b1628" />
+    <script>
+      // Apply the saved theme before first paint to avoid a flash of the wrong theme
+      (function () {
+        var theme = 'dark'
+        try { theme = localStorage.getItem('portfolio-theme') || 'dark' } catch (e) {}
+        document.documentElement.setAttribute('data-theme', theme)
+        document.querySelector('meta[name="theme-color"]')
+          .setAttribute('content', theme === 'light' ? '#f9fafb' : '#0b1628')
+      })()
+    </script>
+  </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>

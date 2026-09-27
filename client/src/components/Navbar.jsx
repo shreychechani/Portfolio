@@ -124,7 +124,7 @@ export default function Navbar() {
                 <img
                   src={BatmanLogo}
                   alt="Dark mode"
-                  style={{ width: '20px', height: '20px', objectFit: 'contain' }}
+                  style={{ width: '24px', height: 'auto' }}
                 />
               )}
             </motion.button>

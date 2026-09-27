@@ -3,6 +3,7 @@
 /*DARK THEME VARIABLES*/
 :root,
 [data-theme="dark"] {
+  color-scheme: dark;
   --bg:             #0b1628;
   --bg-2:           #0d1e38;
   --bg-card:        rgba(255, 255, 255, 0.04);
@@ -21,6 +22,7 @@
 
 /*  LIGHT THEME VARIABLES  */
 [data-theme="light"] {
+  color-scheme: light;
   --bg:             #f9fafb;
   --bg-2:           #f3f4f6;
   --bg-card:        rgba(0, 0, 0, 0.025);

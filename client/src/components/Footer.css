@@ -1,5 +1,5 @@
 .footer {
-  background: rgba(7, 14, 28, 0.9);
+  background: var(--bg-2);
   border-top: 1px solid var(--border);
   padding: 28px 0;
 }

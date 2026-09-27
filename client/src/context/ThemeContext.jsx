@@ -21,6 +21,8 @@ export function ThemeProvider({ children }) {
     } else {
       document.documentElement.classList.remove('dark')
     }
+    document.querySelector('meta[name="theme-color"]')
+      ?.setAttribute('content', theme === 'light' ? '#f9fafb' : '#0b1628')
   }, [theme])
 
   return (
