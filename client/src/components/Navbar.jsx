@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useTheme } from '../context/ThemeContext'
+import { useTheme } from '../context/useTheme'
 import './Navbar.css'
 import BatmanLogo from '../assets/Batman_logo.png'
 
