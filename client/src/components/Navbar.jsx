@@ -19,6 +19,7 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState('home')
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const observerRef = useRef(null)
+  const pendingScrollRef = useRef(null)
   const isDark = theme === 'dark'
 
   useEffect(() => {
@@ -49,8 +50,15 @@ export default function Navbar() {
   const handleNavClick = (e, itemName, link) => {
     e.preventDefault()
     setActiveSection(itemName.toLowerCase())
-    setIsMenuOpen(false)
-    document.querySelector(link)?.scrollIntoView({ behavior: 'smooth' })
+    const scroll = () => document.querySelector(link)?.scrollIntoView({ behavior: 'smooth' })
+    if (isMenuOpen) {
+      // Scrolling while the mobile menu animates closed gets cancelled on
+      // mobile, so wait for the exit animation to finish (see onExitComplete).
+      pendingScrollRef.current = scroll
+      setIsMenuOpen(false)
+    } else {
+      scroll()
+    }
   }
 
   return (
@@ -145,7 +153,12 @@ export default function Navbar() {
         </div>
 
         {/* MOBILE DROPDOWN */}
-        <AnimatePresence>
+        <AnimatePresence
+          onExitComplete={() => {
+            pendingScrollRef.current?.()
+            pendingScrollRef.current = null
+          }}
+        >
           {isMenuOpen && (
             <motion.div
               className={`mobile-menu ${isDark ? 'mobile-menu-dark' : 'mobile-menu-light'}`}
