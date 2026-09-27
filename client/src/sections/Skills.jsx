@@ -6,6 +6,7 @@ const SKILLS = {
   Languages: [
     { name: 'Python',  level: 88, color: '#fbbf24' },
     { name: 'C++',     level: 80, color: '#60a5fa' },
+    { name: 'JavaScript', level: 80, color: '#facc15' },
     { name: 'C',       level: 72, color: '#a78bfa' },
   ],
   Frontend: [
@@ -17,8 +18,10 @@ const SKILLS = {
     { name: 'PyTorch',     level: 70, color: '#ef4444' },
     { name: 'Scikit-learn',level: 80, color: '#fbbf24' },
     { name: 'YOLOv5',     level: 90, color: '#10b981' },
+    { name: 'LLMs, RAG & Evaluation', level: 82, color: '#a78bfa' },
   ],
   'Backend & Tools': [
+    { name: 'FastAPI',    level: 80, color: '#14b8a6' },
     { name: 'Node.js',    level: 72, color: '#4ade80' },
     { name: 'MongoDB',    level: 68, color: '#34d399' },
     { name: 'Express.js', level: 70, color: '#94a3b8' },
@@ -132,8 +135,8 @@ export default function Skills() {
         <div className="tech-pills-row reveal delay-5">
           <p className="pills-label">Also familiar with</p>
           <div className="tech-pills">
-            {['Solidity','OpenCV',
-              'NumPy','Pandas','Linux'].map(t => (
+            {['TypeScript','Solidity','Flask','SQLAlchemy','LiteLLM','Langfuse','DSPy',
+              'OpenCV','NumPy','Pandas','MySQL','Docker','Linux'].map(t => (
               <span key={t} className="tech-pill">{t}</span>
             ))}
           </div>

@@ -6,15 +6,28 @@ import './Experience.css'
 // Work experience first, then education
 const WORK = [
   {
+    role: 'AI Engineering Intern',
+    org: 'Veloce AI',
+    date: 'Aug 2026 – Present',
+    color: '#a78bfa',
+    points: [
+      'Building Reprompt, a self-evolving prompt optimizer that migrates multi-stage LLM pipelines to cheaper models via iterative critique-refine loops and three-signal composite scoring.',
+      'Designed a DAG-based Pipeline → Stage data model (SQLAlchemy 2.0) with versioned Migration/Candidate tracking for reproducible optimization runs.',
+      'Shipped a full-stack migration platform (FastAPI + React with TypeScript) with DAG-based pipeline visualization, BYOK multi-model support, and 600+ automated tests.',
+    ],
+    tags: ['FastAPI', 'React', 'TypeScript', 'SQLAlchemy', 'LLMs'],
+  },
+  {
     role: 'AI Engineering Intern – Tax Technology',
     org: 'EY (Ernst & Young)',
-    date: 'June 2026 – Present',
+    date: 'June 2026 – Aug 2026',
     color: '#fbbf24',
     points: [
-      'Researching and implementing Agentic Workflows and Agent Harness Engineering concepts for enterprise Tax Technology use cases',
-      'Analyzing agent reliability, observability, guardrails, and workflow orchestration to support scalable AI-driven tax solutions',
+      'Built an LLM cost-optimization framework for Taxmann.AI, a RAG tax-research product running a three-stage chain.',
+      'Engineered a multi-model evaluation harness (FastAPI + LiteLLM) routing across Gemini, Groq, OpenRouter, and NVIDIA NIM, with DSPy GEPA optimization and LLMLingua-2 context compression.',
+      'Designed a three-tier evaluation pipeline — embedding similarity, cross-encoder reranking, and LLM-as-judge — validated against 25 production query traces.',
     ],
-    tags: ['AI', 'Agentic Workflows', 'Orchestration'],
+    tags: ['FastAPI', 'LiteLLM', 'DSPy', 'RAG', 'LLM Evaluation'],
   },
   {
     role: 'Research Intern',
@@ -22,9 +35,9 @@ const WORK = [
     date: 'May 2025 – July 2025',
     color: '#38bdf8',
     points: [
-      'Researched robust object detection in challenging environments — low visibility and cluttered backgrounds — using computer vision.',
-      'Trained and evaluated YOLOv5 on FLIR multispectral datasets containing RGB and Thermal images.',
-      'Developed custom PyTorch data preprocessing and training scripts enabling future RGB–thermal fusion.',
+      'Built a YOLOv5-based object detection pipeline on FLIR RGB-Thermal datasets for low-visibility environments, improving detection accuracy over single-modality baselines.',
+      'Automated preprocessing and annotation alignment in PyTorch, reducing dataset preparation time by 60%.',
+      'Designed an RGB-thermal fusion model for real-time multimodal inference in surveillance and autonomous driving applications.',
     ],
     tags: ['Python', 'PyTorch', 'YOLOv5', 'Computer Vision'],
   },

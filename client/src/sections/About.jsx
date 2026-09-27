@@ -55,8 +55,9 @@ export default function About() {
             </p>
             <p style={{ marginTop: 12 }}>
               I thrive at the intersection of data and product — building
-              things that actually solve real problems. Currently exploring
-              AI-powered applications and decentralised systems.
+              things that actually solve real problems. Currently working as an
+              AI Engineering Intern at Veloce AI, building LLM prompt-optimization
+              and evaluation systems.
             </p>
             <div className="interest-tags">
               {['Full-Stack Dev','Machine Learning','Blockchain',
@@ -77,6 +78,7 @@ export default function About() {
               {[
                 { icon: '📍', label: 'Jaipur, Rajasthan, India' },
                 { icon: '🎓', label: 'B.Tech CS — JKLU, 2023–2027' },
+                { icon: '💼', label: 'AI Engineering Intern @ Veloce AI' },
                 { icon: '📧', label: 'shreychechani@gmail.com' },
               ].map(item => (
                 <div key={item.label} className="detail-row">
