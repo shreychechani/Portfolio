@@ -6,7 +6,7 @@ A full-stack personal portfolio built with the MERN Stack (MongoDB, Express.js, 
 
 ## Project Description
 
-A full-stack personal portfolio website built from scratch using the MERN Stack. It serves as a living CV — showcasing my skills, projects, research experience, blockchain work, and certifications, with a fully functional contact form that stores messages in MongoDB and sends email notifications via Nodemailer. The CV is available for download in both PDF and DOCX formats served through a dedicated Express backend route. The UI features a typewriter effect, smooth scroll animations via AOS, Framer Motion navbar animations, dark/light mode toggle, and is fully responsive across all devices.
+A full-stack personal portfolio website built from scratch using the MERN Stack. It serves as a living CV — showcasing my skills, projects, research experience, blockchain work, and certifications, with a fully functional contact form that stores messages in MongoDB and sends email notifications via Resend. The CV is available for download in both PDF and DOCX formats served through a dedicated Express backend route. The UI features a typewriter effect, smooth scroll animations via AOS, Framer Motion navbar animations, dark/light mode toggle, and is fully responsive across all devices.
 
 ---
 
@@ -74,7 +74,7 @@ Portfolio/
     │   ├── contact.js         # POST /api/contact
     │   └── download.js        # GET /api/download/cv-pdf & cv-docx
     ├── middleware/
-    │   └── emailService.js    # Nodemailer — sends 2 emails on form submit
+    │   └── emailService.js    # Resend — sends 2 emails on form submit
     ├── files/                 # CV files (gitignored)
     │   ├── ShreyChechani_CV.pdf
     │   └── ShreyChechani_CV.docx
@@ -91,7 +91,7 @@ Portfolio/
 - Node.js v18+
 - npm v9+
 - MongoDB Atlas account (free tier)
-- Gmail account with **App Password** enabled
+- [Resend](https://resend.com) account and API key
 
 ### 1. Clone the repo
 
@@ -119,9 +119,10 @@ Fill in your values:
 PORT=3000
 MONGO_URI=mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/portfolio?retryWrites=true&w=majority
 CLIENT_URL=http://localhost:5173
-EMAIL_USER=your@gmail.com
-EMAIL_APP_PASSWORD=your_16_char_app_password_no_spaces
-EMAIL_TO=your@gmail.com
+RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxx
+RESEND_FROM_EMAIL=onboarding@resend.dev
+EMAIL_TO=your@email.com
+ADMIN_TOKEN=a_long_random_string
 ```
 
 Place your CV files inside `server/files/`:
@@ -176,7 +177,7 @@ npm run dev
 | Backend health | http://localhost:3000/api/health |
 | PDF download | http://localhost:3000/api/download/cv-pdf |
 | DOCX download | http://localhost:3000/api/download/cv-docx |
-| Contact form | Fill & submit → check MongoDB Atlas + Gmail inbox |
+| Contact form | Fill & submit → check MongoDB Atlas + your inbox |
 
 ---
 
@@ -201,9 +202,10 @@ npm run dev
 | `PORT` | Server port (3000 locally, 10000 on Render) |
 | `MONGO_URI` | MongoDB Atlas connection string |
 | `CLIENT_URL` | Frontend URL for CORS |
-| `EMAIL_USER` | Your Gmail address |
-| `EMAIL_APP_PASSWORD` | 16-char Gmail App Password (no spaces) |
-| `EMAIL_TO` | Email to receive contact notifications |
+| `RESEND_API_KEY` | API key from [resend.com](https://resend.com) |
+| `RESEND_FROM_EMAIL` | Sender address; `onboarding@resend.dev` until you verify a domain in Resend |
+| `EMAIL_TO` | Email to receive contact notifications (must be your Resend account email until a domain is verified) |
+| `ADMIN_TOKEN` | Bearer token required to list messages via `GET /api/contact` |
 
 ### client/.env
 
@@ -240,7 +242,7 @@ npm run dev
 | Frontend | React 18, Vite, Framer Motion, AOS, react-type-animation, Axios |
 | Backend | Node.js, Express.js |
 | Database | MongoDB Atlas, Mongoose |
-| Email | Nodemailer (Gmail SMTP) |
+| Email | Resend (HTTPS API) |
 | Deployment | Vercel (frontend), Render (backend) |
 
 ---

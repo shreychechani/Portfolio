@@ -1,22 +1,19 @@
-import nodemailer from 'nodemailer'
+import { Resend } from 'resend'
 
-let transporter
+let resend
 
-const createTransporter = () => {
-  if (transporter) return transporter
-  if (!process.env.EMAIL_USER || !process.env.EMAIL_APP_PASSWORD) {
-    throw new Error('EMAIL_USER or EMAIL_APP_PASSWORD missing from .env file')
+// Emails go out over Resend's HTTPS API (Render's free tier blocks SMTP ports).
+// Until a domain is verified in Resend, only onboarding@resend.dev can be used
+// as the sender, and it can only deliver to the Resend account's own email.
+const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev'
+
+const getResend = () => {
+  if (resend) return resend
+  if (!process.env.RESEND_API_KEY) {
+    throw new Error('RESEND_API_KEY missing from .env file')
   }
-
-  transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_APP_PASSWORD,
-    },
-  })
-
-  return transporter
+  resend = new Resend(process.env.RESEND_API_KEY)
+  return resend
 }
 
 const escapeHtml = str => String(str).replace(/[&<>"']/g, c => ({
@@ -24,7 +21,7 @@ const escapeHtml = str => String(str).replace(/[&<>"']/g, c => ({
 }[c]))
 
 const sendContactEmail = async ({ name: rawName, email: rawEmail, message: rawMessage }) => {
-  const transporter = createTransporter()
+  const resend = getResend()
 
   // Escape user input before placing it in the HTML templates
   const name    = escapeHtml(rawName)
@@ -38,9 +35,9 @@ const sendContactEmail = async ({ name: rawName, email: rawEmail, message: rawMe
   })
 
   const toYou = {
-    from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
+    from: `Portfolio Contact <${FROM_EMAIL}>`,
     to: process.env.EMAIL_TO,
-    replyTo: { name: rawName, address: rawEmail },
+    replyTo: rawEmail,
     subject: `New message from ${rawName} — Portfolio`,
     html: `
 <!DOCTYPE html>
@@ -93,8 +90,9 @@ const sendContactEmail = async ({ name: rawName, email: rawEmail, message: rawMe
   }
 
   const toThem = {
-    from: `"Shrey Chechani" <${process.env.EMAIL_USER}>`,
+    from: `Shrey Chechani <${FROM_EMAIL}>`,
     to: rawEmail,
+    replyTo: process.env.EMAIL_TO,
     subject: `Got your message, ${rawName}! I'll be in touch soon`,
     html: `
 <!DOCTYPE html>
@@ -164,23 +162,26 @@ const sendContactEmail = async ({ name: rawName, email: rawEmail, message: rawMe
     toThem: null,
   }
 
-  try {
-    console.log(`Sending admin notification to ${process.env.EMAIL_TO}`)
-    results.toYou = await transporter.sendMail(toYou)
-    console.log(`Email sent to you: ${results.toYou.messageId}`)
-  } catch (err) {
-    console.error(`Failed to send admin notification: ${err.message}`)
+  // resend.emails.send resolves with { data, error } instead of throwing
+  console.log(`Sending admin notification to ${process.env.EMAIL_TO}`)
+  const adminResult = await resend.emails.send(toYou)
+  if (adminResult.error) {
+    console.error(`Failed to send admin notification: ${adminResult.error.message}`)
+  } else {
+    results.toYou = adminResult.data
+    console.log(`Email sent to you: ${adminResult.data.id}`)
   }
 
-  try {
-    console.log(`Sending auto-reply to ${rawEmail}`)
-    results.toThem = await transporter.sendMail(toThem)
-    console.log(`Auto-reply sent to ${rawEmail}: ${results.toThem.messageId}`)
-  } catch (err) {
-    console.error(`Failed to send auto-reply to ${rawEmail}: ${err.message}`)
+  console.log(`Sending auto-reply to ${rawEmail}`)
+  const replyResult = await resend.emails.send(toThem)
+  if (replyResult.error) {
+    console.error(`Failed to send auto-reply to ${rawEmail}: ${replyResult.error.message}`)
+  } else {
+    results.toThem = replyResult.data
+    console.log(`Auto-reply sent to ${rawEmail}: ${replyResult.data.id}`)
   }
 
   return results
 }
 
-export { createTransporter, sendContactEmail }
+export { sendContactEmail }
