@@ -3,8 +3,6 @@ import { motion } from 'framer-motion'
 import './Hero.css'
 import profileImg from '../assets/Profile_Photo.jpeg'
 
-const API = import.meta.env.VITE_API_URL || 'http://localhost:3000'
-
 export default function Hero() {
   return (
     <section id="home" className="hero-section">

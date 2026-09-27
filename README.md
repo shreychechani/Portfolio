@@ -1,41 +1,36 @@
 # Shrey Chechani — Personal Portfolio
 
-A full-stack personal portfolio built with the MERN Stack (MongoDB, Express.js, React.js, Node.js).
+A personal portfolio website built with React and Vite.
 
 ---
 
 ## Project Description
 
-A full-stack personal portfolio website built from scratch using the MERN Stack. It serves as a living CV — showcasing my skills, projects, research experience, blockchain work, and certifications, with a fully functional contact form that stores messages in MongoDB and sends email notifications via Resend. The CV is available for download in both PDF and DOCX formats served through a dedicated Express backend route. The UI features a typewriter effect, smooth scroll animations via AOS, Framer Motion navbar animations, dark/light mode toggle, and is fully responsive across all devices.
+A personal portfolio website built from scratch with React. It serves as a living CV — showcasing my experience, skills, projects, research, blockchain work, and certifications, with ways to reach me by email, LinkedIn, or GitHub. The CV is available as a PDF download. The UI features a typewriter effect, smooth scroll animations via AOS, Framer Motion navbar animations, a dark/light mode toggle, and is fully responsive across all devices.
 
 ---
 
 ## Features
 
-- React.js frontend (Vite + CSS Modules)
-- Node.js + Express.js REST API backend
-- MongoDB + Mongoose for contact form storage
+- React.js frontend (Vite)
 - Typewriter effect in Hero section (react-type-animation)
 - Scroll animations with AOS
 - Framer Motion navbar with animated active indicator
 - Fully responsive (mobile, tablet, desktop)
 - Dark / Light mode toggle (persisted in localStorage)
-- CV download in PDF and DOCX from Express backend route
-- Contact form wired to backend — saves to MongoDB + sends email notification + auto-reply to sender
+- CV download as PDF
 - Skills categorised: Languages / Frontend / ML–AI / Backend & Tools
-- Animated vertical Education & Experience timeline
+- Animated vertical Experience & Education timeline
 - Certifications & Achievements section
+- Contact section with email, LinkedIn, GitHub, and location
 - Custom cursor
 - Batman logo toggle for dark mode 🦇
 
 ---
 
-## Deployment Links
+## Live Site
 
-| | URL |
-|---|---|
-| **Frontend (Vercel)** | https://portfolio-client-red.vercel.app/ |
-| **Backend (Render)** | https://portfolio-api-51mq.onrender.com |
+https://portfolio-client-red.vercel.app/
 
 ---
 
@@ -43,42 +38,27 @@ A full-stack personal portfolio website built from scratch using the MERN Stack.
 
 ```
 Portfolio/
-├── client/                    # React.js (Vite)
-│   ├── public/
-│   │   └── assets/
-│   │       └── profile.png    # bg-removed photo
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Navbar.jsx     # floating pill navbar, Framer Motion
-│   │   │   └── Footer.jsx
-│   │   ├── sections/
-│   │   │   ├── Hero.jsx       # typewriter + photo cutout
-│   │   │   ├── About.jsx      # bento grid
-│   │   │   ├── Skills.jsx     # animated skill bars
-│   │   │   ├── Projects.jsx   # filter by tech + GitHub/live links
-│   │   │   ├── Experience.jsx # vertical timeline (id="timeline")
-│   │   │   ├── Certifications.jsx
-│   │   │   └── Contact.jsx    # form → Express → MongoDB + email
-│   │   ├── context/
-│   │   │   └── ThemeContext.jsx
-│   │   ├── App.jsx
-│   │   └── index.css
-│   ├── vercel.json            # SPA routing fix
-│   └── package.json
-│
-└── server/                    # Node.js + Express.js
-    ├── index.js               # entry point
-    ├── models/
-    │   └── Contact.js         # Mongoose schema
-    ├── routes/
-    │   ├── contact.js         # POST /api/contact
-    │   └── download.js        # GET /api/download/cv-pdf & cv-docx
-    ├── middleware/
-    │   └── emailService.js    # Resend — sends 2 emails on form submit
-    ├── files/                 # CV files (gitignored)
-    │   ├── ShreyChechani_CV.pdf
-    │   └── ShreyChechani_CV.docx
-    ├── .env                   # NOT pushed to GitHub
+└── client/                      # React.js (Vite)
+    ├── public/
+    │   └── Shrey_Chechani_CV.pdf  # resume served for download
+    ├── src/
+    │   ├── assets/              # profile photo, Batman logo
+    │   ├── components/
+    │   │   ├── Navbar.jsx       # floating pill navbar, Framer Motion
+    │   │   └── Footer.jsx
+    │   ├── sections/
+    │   │   ├── Hero.jsx         # typewriter + photo + resume download
+    │   │   ├── About.jsx        # bento grid
+    │   │   ├── Skills.jsx       # animated skill bars
+    │   │   ├── Projects.jsx     # filter by tech + GitHub/live links
+    │   │   ├── Experience.jsx   # vertical timeline
+    │   │   ├── Certifications.jsx
+    │   │   └── Contact.jsx      # contact details cards
+    │   ├── context/
+    │   │   ├── ThemeContext.jsx # ThemeProvider (dark/light)
+    │   │   └── useTheme.js      # theme context + useTheme hook
+    │   ├── App.jsx
+    │   └── index.css
     └── package.json
 ```
 
@@ -90,148 +70,47 @@ Portfolio/
 
 - Node.js v18+
 - npm v9+
-- MongoDB Atlas account (free tier)
-- [Resend](https://resend.com) account and API key
 
-### 1. Clone the repo
+### Run it
 
 ```bash
-git clone https://github.com/shreychechani/portfolio.git
-cd portfolio
-```
-
-### 2. Setup the Backend
-
-```bash
-cd server
+git clone https://github.com/shreychechani/Portfolio.git
+cd Portfolio/client
 npm install
-```
-
-Create your `.env` file (copy from `.env.example`):
-
-```bash
-cp .env.example .env
-```
-
-Fill in your values:
-
-```env
-PORT=3000
-MONGO_URI=mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/portfolio?retryWrites=true&w=majority
-CLIENT_URL=http://localhost:5173
-RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxx
-RESEND_FROM_EMAIL=onboarding@resend.dev
-EMAIL_TO=your@email.com
-ADMIN_TOKEN=a_long_random_string
-```
-
-Place your CV files inside `server/files/`:
-
-```
-server/files/ShreyChechani_CV.pdf
-server/files/ShreyChechani_CV.docx
-```
-
-Start the backend:
-
-```bash
 npm run dev
-# Server runs at → http://localhost:3000
+# Site runs at → http://localhost:5173
 ```
 
-### 3. Setup the Frontend
-
-Open a new terminal:
+### Other scripts
 
 ```bash
-cd client
-npm install
-```
-
-Create `client/.env`:
-
-```env
-VITE_API_URL=http://localhost:3000
-```
-
-Add your profile photo (background removed) at:
-
-```
-client/public/assets/profile.png
-```
-
-Start the frontend:
-
-```bash
-npm run dev
-# Frontend runs at → http://localhost:5173
+npm run build     # production build into client/dist
+npm run preview   # serve the production build locally
+npm run lint      # ESLint
 ```
 
 ---
 
-## Verify It's Working
+## Updating Content
 
-| What | URL |
+| What | Where |
 |---|---|
-| Portfolio site | http://localhost:5173 |
-| Backend health | http://localhost:3000/api/health |
-| PDF download | http://localhost:3000/api/download/cv-pdf |
-| DOCX download | http://localhost:3000/api/download/cv-docx |
-| Contact form | Fill & submit → check MongoDB Atlas + your inbox |
-
----
-
-## API Endpoints
-
-| Method | Endpoint | Description |
-|---|---|---|
-| GET | `/api/health` | Server health check |
-| POST | `/api/contact` | Submit contact form |
-| GET | `/api/contact` | View all messages |
-| GET | `/api/download/cv-pdf` | Download CV as PDF |
-| GET | `/api/download/cv-docx` | Download CV as Word |
-
----
-
-## Environment Variables
-
-### server/.env
-
-| Variable | Description |
-|---|---|
-| `PORT` | Server port (3000 locally, 10000 on Render) |
-| `MONGO_URI` | MongoDB Atlas connection string |
-| `CLIENT_URL` | Frontend URL for CORS |
-| `RESEND_API_KEY` | API key from [resend.com](https://resend.com) |
-| `RESEND_FROM_EMAIL` | Sender address; `onboarding@resend.dev` until you verify a domain in Resend |
-| `EMAIL_TO` | Email to receive contact notifications (must be your Resend account email until a domain is verified) |
-| `ADMIN_TOKEN` | Bearer token required to list messages via `GET /api/contact` |
-
-### client/.env
-
-| Variable | Description |
-|---|---|
-| `VITE_API_URL` | Backend URL (localhost:3000 or Render URL) |
+| Experience & education | `client/src/sections/Experience.jsx` (`WORK`, `EDUCATION`) |
+| Projects | `client/src/sections/Projects.jsx` (`PROJECTS`) |
+| Skills | `client/src/sections/Skills.jsx` (`SKILLS`) |
+| Contact details | `client/src/sections/Contact.jsx` (`CONTACTS`) |
+| Resume | Replace `client/public/Shrey_Chechani_CV.pdf` |
 
 ---
 
 ## Deployment
 
-**Frontend → Vercel**
+**Vercel**
 
 1. Push to GitHub
-2. Import repo on vercel.com
+2. Import the repo on vercel.com
 3. Root directory: `client`
 4. Framework: Vite
-5. Add env var: `VITE_API_URL=https://your-backend.onrender.com`
-
-**Backend → Render**
-
-1. New Web Service on render.com
-2. Root directory: `server`
-3. Build command: `npm install`
-4. Start command: `npm start`
-5. Add all env vars from `server/.env`
 
 ---
 
@@ -239,11 +118,8 @@ npm run dev
 
 | Layer | Technology |
 |---|---|
-| Frontend | React 18, Vite, Framer Motion, AOS, react-type-animation, Axios |
-| Backend | Node.js, Express.js |
-| Database | MongoDB Atlas, Mongoose |
-| Email | Resend (HTTPS API) |
-| Deployment | Vercel (frontend), Render (backend) |
+| Frontend | React 19, Vite, Framer Motion, AOS, react-type-animation |
+| Deployment | Vercel |
 
 ---
 
