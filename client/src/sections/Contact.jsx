@@ -33,6 +33,12 @@ export default function Contact() {
   const [errors, setErrors] = useState({})
   const [serverError, setServerError] = useState('')
 
+  // The API is on Render's free tier, which sleeps when idle and can take
+  // ~a minute to wake. Ping it on load so it's awake by the time someone submits.
+  useEffect(() => {
+    axios.get(`${API}/api/health`, { timeout: 90000 }).catch(() => {})
+  }, [])
+
   const validate = () => {
     const e = {}
     if (!form.name.trim()) e.name = 'Name is required'
@@ -74,7 +80,7 @@ export default function Contact() {
         name: form.name.trim(),
         email: form.email.trim().toLowerCase(),
         message: form.message.trim(),
-      })
+      }, { timeout: 90000 })
 
       setStatus('success')
       setForm({ name: '', email: '', message: '' })
@@ -82,7 +88,10 @@ export default function Contact() {
     } catch (err) {
       console.error('Contact form error:', err)
       setServerError(
-        err.response?.data?.error || 'Something went wrong while sending your message.'
+        err.response?.data?.error ||
+        (err.code === 'ECONNABORTED'
+          ? 'The server took too long to respond. Please try again, or email me at shreychechani@gmail.com'
+          : 'Something went wrong while sending your message. Please email me at shreychechani@gmail.com')
       )
       setStatus('error')
     }

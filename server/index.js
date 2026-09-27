@@ -52,17 +52,21 @@ app.use((req, res) => {
   res.status(404).json({ error: `Route ${req.method} ${req.url} not found` })
 })
 
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log('MongoDB Atlas connected successfully')
+// Start listening right away so the API (and health check) stays reachable
+// even if MongoDB is slow or unavailable; the contact route reports that case.
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`)
+  console.log(`Contact API: http://localhost:${PORT}/api/contact`)
+  console.log(`Health check: http://localhost:${PORT}/api/health`)
+})
 
-    app.listen(PORT, () => {
-      console.log(`Server running at http://localhost:${PORT}`)
-      console.log(`Contact API: http://localhost:${PORT}/api/contact`)
-      console.log(`Health check: http://localhost:${PORT}/api/health`)
-    })
-  })
-  .catch(err => {
-    console.error('MongoDB connection failed:', err.message)
-    process.exit(1)
-  })
+if (!process.env.MONGO_URI) {
+  console.error('MONGO_URI is not set — contact messages cannot be saved')
+} else {
+  mongoose.connect(process.env.MONGO_URI, { serverSelectionTimeoutMS: 10000 })
+    .then(() => console.log('MongoDB Atlas connected successfully'))
+    .catch(err => console.error('MongoDB connection failed:', err.message))
+}
+
+mongoose.connection.on('disconnected', () => console.warn('MongoDB disconnected'))
+mongoose.connection.on('reconnected', () => console.log('MongoDB reconnected'))

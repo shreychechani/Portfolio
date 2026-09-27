@@ -1,4 +1,5 @@
 import express              from 'express'
+import mongoose             from 'mongoose'
 import Contact              from '../models/Contact.js'
 import { sendContactEmail } from '../middleware/emailService.js'
 
@@ -27,6 +28,14 @@ router.post('/', async (req, res) => {
       return res.status(400).json({
         success: false,
         error: 'Message must be at least 10 characters.',
+      })
+    }
+
+    if (mongoose.connection.readyState !== 1) {
+      console.error('Contact route error: MongoDB is not connected')
+      return res.status(503).json({
+        success: false,
+        error: 'The message service is temporarily unavailable. Please email me at shreychechani@gmail.com',
       })
     }
 
@@ -74,8 +83,12 @@ router.post('/', async (req, res) => {
   }
 })
 
-// GET /api/contact — view all messages
+// GET /api/contact — view all messages (requires ADMIN_TOKEN)
 router.get('/', async (req, res) => {
+  const token = process.env.ADMIN_TOKEN
+  if (!token || req.headers.authorization !== `Bearer ${token}`) {
+    return res.status(401).json({ success: false, error: 'Unauthorized' })
+  }
   try {
     const contacts = await Contact.find().sort({ createdAt: -1 })
     res.json({ success: true, count: contacts.length, data: contacts })

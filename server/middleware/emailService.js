@@ -19,8 +19,17 @@ const createTransporter = () => {
   return transporter
 }
 
-const sendContactEmail = async ({ name, email, message }) => {
+const escapeHtml = str => String(str).replace(/[&<>"']/g, c => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+}[c]))
+
+const sendContactEmail = async ({ name: rawName, email: rawEmail, message: rawMessage }) => {
   const transporter = createTransporter()
+
+  // Escape user input before placing it in the HTML templates
+  const name    = escapeHtml(rawName)
+  const email   = escapeHtml(rawEmail)
+  const message = escapeHtml(rawMessage)
 
   const now = new Date().toLocaleString('en-IN', {
     timeZone: 'Asia/Kolkata',
@@ -31,8 +40,8 @@ const sendContactEmail = async ({ name, email, message }) => {
   const toYou = {
     from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
     to: process.env.EMAIL_TO,
-    replyTo: `"${name}" <${email}>`,
-    subject: `New message from ${name} — Portfolio`,
+    replyTo: { name: rawName, address: rawEmail },
+    subject: `New message from ${rawName} — Portfolio`,
     html: `
 <!DOCTYPE html>
 <html lang="en">
@@ -85,8 +94,8 @@ const sendContactEmail = async ({ name, email, message }) => {
 
   const toThem = {
     from: `"Shrey Chechani" <${process.env.EMAIL_USER}>`,
-    to: email,
-    subject: `Got your message, ${name}! I'll be in touch soon`,
+    to: rawEmail,
+    subject: `Got your message, ${rawName}! I'll be in touch soon`,
     html: `
 <!DOCTYPE html>
 <html lang="en">
@@ -116,7 +125,7 @@ const sendContactEmail = async ({ name, email, message }) => {
       <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:16px 18px;margin:20px 0;">
         <p style="margin:0 0 8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#c2410c;">Your message</p>
         <p style="margin:0;font-size:14px;color:#9a3412;line-height:1.65;font-style:italic;">
-          "${message.length > 120 ? message.substring(0, 120) + '...' : message}"
+          "${rawMessage.length > 120 ? escapeHtml(rawMessage.substring(0, 120)) + '...' : message}"
         </p>
       </div>
 
@@ -164,11 +173,11 @@ const sendContactEmail = async ({ name, email, message }) => {
   }
 
   try {
-    console.log(`Sending auto-reply to ${email}`)
+    console.log(`Sending auto-reply to ${rawEmail}`)
     results.toThem = await transporter.sendMail(toThem)
-    console.log(`Auto-reply sent to ${email}: ${results.toThem.messageId}`)
+    console.log(`Auto-reply sent to ${rawEmail}: ${results.toThem.messageId}`)
   } catch (err) {
-    console.error(`Failed to send auto-reply to ${email}: ${err.message}`)
+    console.error(`Failed to send auto-reply to ${rawEmail}: ${err.message}`)
   }
 
   return results
